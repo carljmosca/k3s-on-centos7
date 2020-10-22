@@ -1,5 +1,9 @@
 k3s on CentOS 7
 
+Given the popularity of kubernetes these days, there are a number of really good tutorials on how to install various kubernetes distros on multiple platforms including one of my favorites, the Raspberry Pi.  Being that I used other non-Debian based Linux distros during the day, I looked for something on CentOS 7 but did not find anything that took me start to finish on Intel-based hardware.
+
+First, I bought a small experimental [Lenovo ThinkCentre](https://www.amazon.com/dp/B07G4LVZQZ/ref=cfb_at_prodpg) from Amazon.
+
 Starting with a [CentOS 7 minimal install](http://mirror.centos.iad1.serverforge.org/7.8.2003/isos/x86_64/CentOS-7-x86_64-Minimal-2003.iso), the following steps were used to install the [k3s](https://k3s.io/) version of Kubernetes along with some additional optional steps.
 
 These instructions currently outline a single node cluster but k3s makes it easy to add nodes if/as needed.
