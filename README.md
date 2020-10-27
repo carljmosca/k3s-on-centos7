@@ -25,7 +25,7 @@ firewall-cmd --zone=public --add-masquerade --permanent
 firewall-cmd --reload
 ```
 
-The next command should download the script which installs k3s.  A parameter is included which will prevent the installation of Traefik, the default ingress because the nginx ingress is installed in a later step.
+The next command should download the script which installs k3s.  A parameter is included which will prevent the installation of Traefik, the default ingress, because the nginx ingress is installed in a later step.
 ```
 curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --no-deploy traefik" sh
 ```
