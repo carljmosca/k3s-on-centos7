@@ -57,10 +57,19 @@ helm install ingress-nginx ingress-nginx/ingress-nginx --namespace ingress-nginx
 ```
 
 The following steps are not required but nice to have, at least in my opinion.
+
+First off, kubectx is a nice tool to switch between contexts.  It is used to switch between the k3s cluster and the nginx ingress.  Along with it, kubens is used to switch between namespaces.  And finally, fzf allows easier command line selection of options.
 ```
 sudo git clone https://github.com/ahmetb/kubectx /opt/kubectx
 sudo ln -s /opt/kubectx/kubectx /usr/local/bin/kubectx
 sudo ln -s /opt/kubectx/kubens /usr/local/bin/kubens
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
+```
+
+Next, prometheus is installed so that we can monitor the k3s cluster.
+```
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+helm install prometheus-community/prometheus prometheus-community/prometheus
 ```
