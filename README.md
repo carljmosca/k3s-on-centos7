@@ -71,5 +71,5 @@ Next, prometheus is installed so that we can monitor the k3s cluster.
 ```
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo update
-helm install prometheus-community/prometheus prometheus-community/prometheus
+helm install prometheus prometheus-community/prometheus-operator --namespace=metrics --create-namespace
 ```
