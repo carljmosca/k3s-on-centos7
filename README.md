@@ -21,6 +21,7 @@ There is also the need for masquerading so that a working ingress can be configu
 firewall-cmd --zone=public --permanent --add-port=6443/tcp
 firewall-cmd --zone=public --permanent --add-port=443/tcp
 firewall-cmd --zone=public --permanent --add-port=8443/tcp
+firewall-cmd --zone=public --permanent --add-port=8472/udp
 firewall-cmd --zone=public --add-masquerade --permanent
 firewall-cmd --reload
 ```
