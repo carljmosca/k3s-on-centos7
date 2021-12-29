@@ -68,9 +68,9 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 ```
 
-Next, prometheus is installed so that we can monitor the k3s cluster.
+Next, prometheus is installed so that we can monitor the k3s cluster.  Prometheus seems to be a bit of a moving target lately, at least if you are trying to use a Helm chart.
 ```
-helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
-helm install prometheus prometheus-community/prometheus-operator --namespace=metrics --create-namespace
+helm install my-release bitnami/kube-prometheus --namespace=monitoring --create-namespace
 ```
