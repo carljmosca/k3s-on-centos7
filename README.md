@@ -8,27 +8,28 @@ Starting with a [CentOS 7 minimal install](http://mirror.centos.iad1.serverforge
 
 These instructions currently outline a single node cluster but k3s makes it easy to add nodes if/as needed.
 
-SELinux must be adjusted with a policy for container runtimes before k3s can be installed.  The first step below installs SELinux for containers along with git which is used later in the process.
-
-```
-yum install -y container-selinux selinux-policy-base git
-yum install -y https://rpm.rancher.io/k3s-selinux-0.1.1-rc1.el7.noarch.rpm
-```
-
-Next, some adjustments are made to the firewall so that the server can be accessed remotely using kubectl (on port 6443)  and via services which utilize http and https protocols (on ports 80 and 443 respectively).
+Some adjustments are made to the firewall so that the server can be accessed remotely using kubectl (on port 6443)  and via services which utilize http and https protocols (on ports 80 and 443 respectively).
 There is also the need for masquerading so that a working ingress can be configured.
 ```
-firewall-cmd --zone=public --permanent --add-port=6443/tcp
-firewall-cmd --zone=public --permanent --add-port=443/tcp
-firewall-cmd --zone=public --permanent --add-port=8443/tcp
-firewall-cmd --zone=public --permanent --add-port=8472/udp
-firewall-cmd --zone=public --add-masquerade --permanent
-firewall-cmd --reload
+sudo firewall-cmd --zone=public --permanent --add-port=6443/tcp
+sudo firewall-cmd --zone=public --permanent --add-port=443/tcp
+sudo firewall-cmd --zone=public --permanent --add-port=8443/tcp
+sudo firewall-cmd --zone=public --permanent --add-port=8472/udp
+sudo firewall-cmd --zone=public --permanent --add-port=10250/tcp
+sudo firewall-cmd --zone=public --add-masquerade --permanent
+sudo firewall-cmd --reload
 ```
 
 The next command should download the script which installs k3s.  A parameter is included which will prevent the installation of Traefik, the default ingress, because the nginx ingress is installed in a later step.
 ```
-curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --no-deploy traefik" sh
+curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --disable traefik" sh
+```
+
+```
+sudo groupadd k3s
+sudo usermod -aG k3s $USER
+sudo chown root:k3s /etc/rancher/k3s/k3s.yaml
+sudo chmod 740 /etc/rancher/k3s/k3s.yaml
 ```
 
 Assuming the above command succeeded, the k3s cluster should be up and running.
