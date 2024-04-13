@@ -13,11 +13,27 @@ There is also the need for masquerading so that a working ingress can be configu
 ```
 sudo firewall-cmd --zone=public --permanent --add-port=6443/tcp
 sudo firewall-cmd --zone=public --permanent --add-port=443/tcp
+sudo firewall-cmd --zone=public --permanent --add-port=53/tcp
 sudo firewall-cmd --zone=public --permanent --add-port=8443/tcp
 sudo firewall-cmd --zone=public --permanent --add-port=8472/udp
+sudo firewall-cmd --zone=public --permanent --add-port=51820/udp
+sudo firewall-cmd --zone=public --permanent --add-port=51821/udp
 sudo firewall-cmd --zone=public --permanent --add-port=10250/tcp
+sudo firewall-cmd --permanent --zone=trusted --add-source=10.42.0.0/16
+sudo firewall-cmd --permanent --zone=trusted --add-source=10.43.0.0/16
 sudo firewall-cmd --zone=public --add-masquerade --permanent
 sudo firewall-cmd --reload
+```
+
+```
+sudo firewall-cmd  --permanent --add-port=6443/tcp
+sudo firewall-cmd  --permanent --add-port=443/tcp
+sudo firewall-cmd  --permanent --add-port=53/tcp
+sudo firewall-cmd  --permanent --add-port=8443/tcp
+sudo firewall-cmd  --permanent --add-port=8472/udp
+sudo firewall-cmd  --permanent --add-port=51820/udp
+sudo firewall-cmd  --permanent --add-port=51821/udp
+sudo firewall-cmd  --permanent --add-port=10250/tcp
 ```
 
 The next command should download the script which installs k3s.  A parameter is included which will prevent the installation of Traefik, the default ingress, because the nginx ingress is installed in a later step.
